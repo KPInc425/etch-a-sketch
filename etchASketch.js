@@ -24,6 +24,9 @@ const mainContainer = document.querySelector('#mainContainer');
 // acquired help for appending grid https://code-boxx.com/create-grid-javascript/
 createBtnReset();
 createBtnGridSize();
+createBtnBlackColor();
+createBtnRandomColor();
+createBtnEraseColor();
 // createBtnActivate();
 createGrid();
 changeBgColorOnHover();
@@ -131,11 +134,39 @@ function createBtnGridSize() {
 
 function createBtnRandomColor() {
     const btnRandomColor = document.createElement('button');
-    btnRandomColor.innerText = "Random Colors!"
+    btnRandomColor.innerText = "Rainbow!"
     //btnRandomColor.style
-    //btnRandomColor.addEventListener('mouseover', changeBgColorOnHover);
+    btnRandomColor.addEventListener('click', () => {
+        penState = 2
+        changeBgColorOnHover();
+    });
+
+    header.appendChild(btnRandomColor);
 }
 
+function createBtnBlackColor() {
+    const BtnBlackColor = document.createElement('button');
+    BtnBlackColor.innerText = "Black"
+    //btnRandomColor.style
+    BtnBlackColor.addEventListener('click', () => {
+        penState = 0
+        changeBgColorOnHover();
+    });
+
+    header.appendChild(BtnBlackColor);
+}
+
+function createBtnEraseColor() {
+    const BtnEraseColor = document.createElement('button');
+    BtnEraseColor.innerText = "Erase"
+    //btnRandomColor.style
+    BtnEraseColor.addEventListener('click', () => {
+        penState = 1
+        changeBgColorOnHover();
+    });
+
+    header.appendChild(BtnEraseColor);
+}
 
 function getPixelSize() {
     pixelSize = GRID_WIDTH / gridSize;
