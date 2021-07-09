@@ -3,7 +3,7 @@
                         
 let gridSize = 16;
 
-let penState = 2;
+let penState = 0;
 const WHITE = "255,255,255";
 const BLACK = "0,0,0";
 
@@ -22,18 +22,11 @@ const mainContainer = document.querySelector('#mainContainer');
                                 
 //         Create divs in js 
 // acquired help for appending grid https://code-boxx.com/create-grid-javascript/
-createBtnRest();
+createBtnReset();
+createBtnGridSize();
+// createBtnActivate();
 createGrid();
 changeBgColorOnHover();
-
-
-
-
-
-
-
-
-
 
 
 function createGrid() {
@@ -76,17 +69,46 @@ function changeBgColorOnHover() {
     } else if (penState == 2) {
         //let randomColor = randomColorGen();
         styleDivBgColor(divArray);
+    // } else if (penState == 3) {
+    //     styleDivBgColor(divArray, randomColorGen().toString())
     }
 }
 
-
-function createBtnRest () {
+// Adds the button to reset the grid
+function createBtnReset() {
     // Add button at top of screen 
     const btnReset = document.createElement('button');
     btnReset.innerText = "Reset Grid"
-    //btnReset.style.cssText = "margin: 0 10px 10px 10px"
+
     //     button clears(resets?) current grid
     btnReset.addEventListener('click', () => {
+        // button prompts user for new grid Number
+        //let userNumSelection = prompt('Pick a number between 1-64');
+        // limit userNUMBER to 64
+        // if (userNumSelection > 64) {
+        //     alert("That number is too High!~ 64 will be used instead.");
+        //     gridSize = 64;
+        // } else {
+        //     gridSize = userNumSelection;
+        // }
+        mainContainer.innerHTML = "";
+        // pixelSize = getPixelSize();
+        //  Create new grid with users # as gridSize
+        createGrid();
+        changeBgColorOnHover();
+    })
+    
+    header.appendChild(btnReset);
+}
+
+// This will prompt the user for a new number for an updated gridsize
+function createBtnGridSize() {
+    // Add button at top of screen 
+    const btnGridSize = document.createElement('button');
+    btnGridSize.innerText = "New Grid Size"
+
+    //     button clears(resets?) current grid
+    btnGridSize.addEventListener('click', () => {
         // button prompts user for new grid Number
         let userNumSelection = prompt('Pick a number between 1-64');
         // limit userNUMBER to 64
@@ -103,10 +125,11 @@ function createBtnRest () {
         changeBgColorOnHover();
     })
     
-    header.appendChild(btnReset);
+    header.appendChild(btnGridSize);
 }
 
-function createBtnRandomColor () {
+
+function createBtnRandomColor() {
     const btnRandomColor = document.createElement('button');
     btnRandomColor.innerText = "Random Colors!"
     //btnRandomColor.style
