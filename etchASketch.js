@@ -15,8 +15,8 @@ let pixelSize = GRID_WIDTH / gridSize;
 
 
 
-// Ref header container for buttons
-const header = document.querySelector('header');
+// Ref sketchTools container for buttons
+const sketchTools = document.querySelector('#sketchTools');
 // Ref container for grid divs in js
 const mainContainer = document.querySelector('#mainContainer');
                                 
@@ -101,7 +101,7 @@ function createBtnReset() {
         changeBgColorOnHover();
     })
     
-    header.appendChild(btnReset);
+    sketchTools.appendChild(btnReset);
 }
 
 // This will prompt the user for a new number for an updated gridsize
@@ -128,7 +128,7 @@ function createBtnGridSize() {
         changeBgColorOnHover();
     })
     
-    header.appendChild(btnGridSize);
+    sketchTools.appendChild(btnGridSize);
 }
 
 
@@ -141,7 +141,7 @@ function createBtnRandomColor() {
         changeBgColorOnHover();
     });
 
-    header.appendChild(btnRandomColor);
+    sketchTools.appendChild(btnRandomColor);
 }
 
 function createBtnBlackColor() {
@@ -153,7 +153,7 @@ function createBtnBlackColor() {
         changeBgColorOnHover();
     });
 
-    header.appendChild(BtnBlackColor);
+    sketchTools.appendChild(BtnBlackColor);
 }
 
 function createBtnEraseColor() {
@@ -165,7 +165,7 @@ function createBtnEraseColor() {
         changeBgColorOnHover();
     });
 
-    header.appendChild(BtnEraseColor);
+    sketchTools.appendChild(BtnEraseColor);
 }
 
 function getPixelSize() {

@@ -3,8 +3,17 @@ html {
     color: white;
 }
 
-header {
+nav {
     display: flex;
+    justify-content: center;
+}
+
+header {
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 10px;
 }
 
 #mainContainer {
@@ -14,6 +23,7 @@ header {
 }
 
 button {
-    margin: 0 10px 10px 10px;
+    margin: 10px;
     width: 128px;
+    height: 32px;
 }
