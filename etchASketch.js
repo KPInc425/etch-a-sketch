@@ -4,6 +4,7 @@
 let gridSize = 16;
 
 let penState = 0;
+let PEN_ACTIVE = false;
 const WHITE = "255,255,255";
 const BLACK = "0,0,0";
 
@@ -24,9 +25,11 @@ const mainContainer = document.querySelector('#mainContainer');
 // acquired help for appending grid https://code-boxx.com/create-grid-javascript/
 createBtnReset();
 createBtnGridSize();
-// createBtnActivate();
+createBtnActivate();
 createGrid();
 changeBgColorOnHover();
+
+
 
 
 function createGrid() {
@@ -82,18 +85,7 @@ function createBtnReset() {
 
     //     button clears(resets?) current grid
     btnReset.addEventListener('click', () => {
-        // button prompts user for new grid Number
-        //let userNumSelection = prompt('Pick a number between 1-64');
-        // limit userNUMBER to 64
-        // if (userNumSelection > 64) {
-        //     alert("That number is too High!~ 64 will be used instead.");
-        //     gridSize = 64;
-        // } else {
-        //     gridSize = userNumSelection;
-        // }
         mainContainer.innerHTML = "";
-        // pixelSize = getPixelSize();
-        //  Create new grid with users # as gridSize
         createGrid();
         changeBgColorOnHover();
     })
@@ -128,6 +120,43 @@ function createBtnGridSize() {
     header.appendChild(btnGridSize);
 }
 
+function createBtnActivate() {
+    const btnActivate = document.createElement('button');
+    btnActivate.innerText = "Activate Pen";
+
+
+    btnActivate.addEventListener('click', () => {
+        let divArray = document.querySelectorAll('div');
+        if (PEN_ACTIVE == false) {
+            PEN_ACTIVE = true;
+            // divArray.forEach((div) => {
+            //     div.classList.add('pixel');
+            // }) 
+            console.log(PEN_ACTIVE);
+            changeBgColorOnHover();
+        } else {
+            PEN_ACTIVE  = false;
+            // divArray.forEach((div) => {
+            //     div.classList.remove('pixel');
+            // }) 
+            console.log(PEN_ACTIVE);
+            changeBgColorOnHover();
+        }
+    })
+    header.appendChild(btnActivate);
+}
+
+// function createBtnActivate() {
+//     const btnActivate = document.createElement('button');
+//     btnActivate.innerText = "Activate Pen";
+
+
+//     btnActivate.addEventListener('click', () => {
+//         let divArray = document.querySelectorAll('div');
+
+//     })
+//     header.appendChild(btnActivate);
+// }
 
 function createBtnRandomColor() {
     const btnRandomColor = document.createElement('button');
@@ -153,17 +182,44 @@ function randomColorGen() {
 }
 
 function styleDivBgColor(divArray, color) {
-    divArray.forEach((div) => {
-        div.addEventListener('mouseover', () => {
-        // if (div.style.backgroundColor == "black") {
-        //     div.style.backgroundColor = "white"
-        // } else {
-        if (penState == 2) {
-            div.style.backgroundColor = `rgb(${randomColorGen().toString()})`;
-        }
-            div.style.backgroundColor = `rgb(${color})`;
-        // }
-
+    if (PEN_ACTIVE == true) {
+        divArray.forEach((div) => {
+            div.addEventListener('mouseover', () => {
+                // if (div.style.backgroundColor == "black") {
+                //     div.style.backgroundColor = "white"
+                // } else {
+                if (penState == 2) {
+                    div.style.backgroundColor = `rgb(${randomColorGen().toString()})`;
+                }
+                    div.style.backgroundColor = `rgb(${color})`;
+                // }
+        
+                })
         })
-    })
+    } else {
+        divArray.forEach((div) => {
+            div.removeEventListener('mouseover', () => {
+                // if (div.style.backgroundColor == "black") {
+                //     div.style.backgroundColor = "white"
+                // } else {
+                if (penState == 2) {
+                    div.style.backgroundColor = `rgb(${randomColorGen().toString()})`;
+                }
+                    div.style.backgroundColor = `rgb(${color})`;
+                // }
+        
+                })
+        })
+    }
+
+    // function changeColor(div) {
+    //     // if (div.style.backgroundColor == "black") {
+    //     //     div.style.backgroundColor = "white"
+    //     // } else {
+    //     if (penState == 2) {
+    //         div.style.backgroundColor = `rgb(${randomColorGen().toString()})`;
+    //     }
+    //         div.style.backgroundColor = `rgb(${color})`;
+    //     // }
+    //     }
 }
