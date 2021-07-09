@@ -3,8 +3,16 @@ html {
     color: white;
 }
 
+header {
+    display: flex;
+}
+
 #mainContainer {
     border: 1px solid purple;
     min-height: 100%;
     margin: auto;
+}
+
+button {
+    margin: 0 10px 10px 10px;
 }

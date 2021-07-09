@@ -1,61 +1,146 @@
 
-
+// Create webpage with 16x16 grid
                         
 let gridSize = 16;
-if (gridSize > 64) {
-    alert("That number is too High!~");
-    gridSize = 64;
-}
 
-const GRID_WIDTH = 800;
-const GRID_HEIGHT = 800;
+let penState = 2;
+const WHITE = "255,255,255";
+const BLACK = "0,0,0";
+
+const GRID_WIDTH = 500;
+const GRID_HEIGHT = 500;
 //to get the pixel size we need to divide the height/width by the gridsize to divy up the total area
 let pixelSize = GRID_WIDTH / gridSize;
 
+
+
+
+// Ref header container for buttons
+const header = document.querySelector('header');
+// Ref container for grid divs in js
 const mainContainer = document.querySelector('#mainContainer');
-mainContainer.style.cssText = `display: grid;
+                                
+//         Create divs in js 
+// acquired help for appending grid https://code-boxx.com/create-grid-javascript/
+createBtnRest();
+createGrid();
+changeBgColorOnHover();
+
+
+
+
+
+
+
+
+
+
+
+function createGrid() {
+    // This styling needs to be adjusted whenever the grid is created, so it was
+    // implemented inside this function
+    mainContainer.style.cssText = `display: grid;
                                 grid-template-columns: repeat(${gridSize}, ${pixelSize}px);
                                 grid-template-rows: repeat(${gridSize}, ${pixelSize}px);
                                 justify-content: center;
                                 text-align: center;
                                 width: ${GRID_WIDTH}px;
-                                height: ${GRID_HEIGHT}px;`
+                                height: ${GRID_HEIGHT}px;`;
+    for (let i = 0; i < gridSize; i++) {
+        for (let j = 0; j < gridSize; j++) {
+            const pixel = document.createElement('div')
+            //pixel.textContent = "P";
+            pixel.classList.add('pixel');
+            pixel.style.cssText = `display: relative;
+                                   width: ${pixelSize}px; 
+                                   height: ${pixelSize}px;
+                                   border: 1px solid cyan;
+                                   background-color: white;
+                                   color: red;`
+            pixel.id = `pixelNum${j}`;
+            mainContainer.appendChild(pixel);
+        }
+    }
+}
 
-// Create webpage with 16x16 grid
-//     Create container for grid divs in js
+function changeBgColorOnHover() {
+    const divArray = document.querySelectorAll('.pixel');
 
-                                
-//         Create divs in js 
-// acquired help for appending grid https://code-boxx.com/create-grid-javascript/
-for (let i = 0; i < gridSize; i++) {
-    for (let j = 0; j < gridSize; j++) {
-        const pixel = document.createElement('div')
-        //pixel.textContent = "P";
-        pixel.classList.add('pixel');
-        pixel.style.cssText = `display: relative;
-                               width: ${pixelSize}px; 
-                               height: ${pixelSize}px;
-                               border: 1px solid cyan;
-                               background-color: white;
-                               color: red;`
-        pixel.id = `pixelNum${j}`;
-        mainContainer.appendChild(pixel);
+    // add hover affect to change divs colors
+    //Add class to div when hovered over
+    if (penState == 0) {
+        // Change div background color with js
+        styleDivBgColor(divArray,  BLACK);
+    } else if (penState == 1) {
+        styleDivBgColor(divArray, WHITE);
+    } else if (penState == 2) {
+        //let randomColor = randomColorGen();
+        styleDivBgColor(divArray);
     }
 }
 
 
+function createBtnRest () {
+    // Add button at top of screen 
+    const btnReset = document.createElement('button');
+    btnReset.innerText = "Reset Grid"
+    //btnReset.style.cssText = "margin: 0 10px 10px 10px"
+    //     button clears(resets?) current grid
+    btnReset.addEventListener('click', () => {
+        // button prompts user for new grid Number
+        let userNumSelection = prompt('Pick a number between 1-64');
+        // limit userNUMBER to 64
+        if (userNumSelection > 64) {
+            alert("That number is too High!~ 64 will be used instead.");
+            gridSize = 64;
+        } else {
+            gridSize = userNumSelection;
+        }
+        mainContainer.innerHTML = "";
+        pixelSize = getPixelSize();
+        //  Create new grid with users # as gridSize
+        createGrid();
+        changeBgColorOnHover();
+    })
+    
+    header.appendChild(btnReset);
+}
+
+function createBtnRandomColor () {
+    const btnRandomColor = document.createElement('button');
+    btnRandomColor.innerText = "Random Colors!"
+    //btnRandomColor.style
+    //btnRandomColor.addEventListener('mouseover', changeBgColorOnHover);
+}
 
 
+function getPixelSize() {
+    pixelSize = GRID_WIDTH / gridSize;
+    return pixelSize;
+}
 
+function randomColorGen() {
+    let r = Math.floor(Math.random() * 255);
+    let g = Math.floor(Math.random() * 255);
+    let b = Math.floor(Math.random() * 255);
 
-//             add hover affect to change divs colors
+    let rgb = [r, g, b];
+    console.log(rgb);
+    return rgb;
+}
 
-// Add button at top of screen 
-//     button clears(resets?) current grid
-//     button prompts user for new grid Number
-//         limit userNUMBER to 100
-//     Create new grid with users NUMBERxNUMBER 
+function styleDivBgColor(divArray, color) {
+    divArray.forEach((div) => {
+        div.addEventListener('mouseover', () => {
+        // if (div.style.backgroundColor == "black") {
+        //     div.style.backgroundColor = "white"
+        // } else {
+        if (penState == 2) {
+            div.style.backgroundColor = `rgb(${randomColorGen().toString()})`;
+        }
+            div.style.backgroundColor = `rgb(${color})`;
+        // }
 
-
-
-
+        })
+    })
+}
