@@ -26,4 +26,13 @@ button {
     margin: 10px;
     width: 128px;
     height: 32px;
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+    border-radius: 12px;
+}
+
+footer {
+    margin-top: 50px;
+    text-align: center;
 }
